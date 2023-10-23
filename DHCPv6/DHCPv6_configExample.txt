@@ -1,0 +1,21 @@
+en
+conf t
+no ip domain lookup
+hostname R2
+int g0/0/1
+ipv6 address 2004::1/126
+no shut
+exit
+ipv6 unicast-routing
+ipv6 dhcp pool this_pool
+address prefix 2000:cccc::/64
+dns-server 2000:cccc::a
+exit
+int g0/0/0
+ipv6 address 2000:cccc::1/64
+ipv6 dhcp server this_pool
+ipv6 nd managed-config-flag
+ipv6 nd prefix 2000:cccc::/64  no-autoconfig
+no shut
+exit
+ 

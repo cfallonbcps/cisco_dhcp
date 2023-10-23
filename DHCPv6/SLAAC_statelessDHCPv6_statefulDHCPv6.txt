@@ -1,0 +1,70 @@
+In our SLAAC example, we demonstrate how PC0 and PC1
+autoconfigure their IPv6 address using the prefix provided by
+router R01, and their own mac address using EUI-64.
+
+!SLAAC configuration on the router:
+en
+debug ipv6 nd
+conf t
+hostname R01
+no ip domain lookup
+interface g0/0
+ipv6 address 2001:DB8:10::1/64
+no shut
+exit
+ipv6 unicast-routing
+exit
+
+In our SLAAC with DHCPv6 (Stateless DHCPv6) example, we demonstrate 
+how PC0 and PC1 autoconfigure their 
+IPv6 address using the prefix provided 
+by router R01, and their own mac address using EUI-64.  These hosts also learn 
+the address of the DNS server from the partial DHCP server configuration.
+
+en
+debug ipv6 nd
+config t
+hostname R23
+no ip domain lookup
+interface g0/0
+ipv6 address 2001:DB8:10::1/64
+no shut
+exit
+ipv6 unicast-routing
+exit
+!--------------------
+
+debug ipv6 dhcp detail
+conf t
+ipv6 dhcp pool ABCDEFG
+dns-server 2001:DB8:10::A
+!
+int g0/0
+ipv6 nd other-config-flag
+ipv6 dhcp server ABCDEFG
+exit
+
+Stateful DHCPv6 does not require SLAAC.
+It is important to note that although DHCPv6 
+provides a service similar to DHCPv4, the two
+protocols are different.
+
+One indication of this difference in the UDP ports on which DHCPv4 and DHCPv6 operate.
+With DHCPv4, client machines listen on port 68 and DHCPv4 servers listen on port 67.
+
+With DHCPv6, client machines listen on port 546 and DHCPv4 servers listen on port 547.
+
+From netacad Switching Routing Wireless Essentials, Version 7.0, we read:
+
+The steps for DHCPv6 operations are as follows:
+
+The host sends an RS message.
+The router responds with an RA message.
+The host sends a DHCPv6 SOLICIT message.
+The DHCPv6 server responds with an ADVERTISE message.
+The host responds to the DHCPv6 server.
+The DHCPv6 server sends a REPLY message.
+
+======================
+
+ipv6 nd managed-config-flag

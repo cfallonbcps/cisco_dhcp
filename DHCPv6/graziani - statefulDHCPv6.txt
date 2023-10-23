@@ -1,0 +1,10 @@
+https://www.youtube.com/watch?v=rzoeuXqvmG0  Rick Graziani - IPv6 Stateful DHCPv6
+
+note - the   < > no-autoconfig  does not work in packet tracer
+
+found reference to the a-flag in one of Rick Graziani's video.  Good video!
+
+The only problem is the following interface configuration command is not recognized in packet tracer:
+
+ipv6  nd prefix 2001:db8:10::/64 no-autoconfig  
+

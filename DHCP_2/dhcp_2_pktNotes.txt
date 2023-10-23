@@ -1,0 +1,50 @@
+DHCP_2
+
+This network demonstrates the following six networking concepts:
+1.  Configuration and use of DHCPv4 in a multiple vlan environment where one router provides
+DHCP service to two vlans.
+2 .  Inter-vlan routing
+3.   Static routing
+4.   Use of the default static route  0.0.0.0  0.0.0.0   to define a gateway of last resort
+5.   Use of a local DNS server
+6.   Network Address Translation / Port Address Translation   and    Static Network Address Translation
+7.   Access to a server in the DMZ area
+
+
+Five Questions:
+
+1.  Why must S0 port fa0/24 be configured as a trunk?
+2.  What is the purpose of the static route configured on R0?
+3.  What is the purpose of each static route configured on edge? 
+4.  How would this network change if the DHCP server were located between R0 and edge?
+5.  Why does the ISP need no static routing?   (i.e.   R0 would not provide DHCP service
+
+
+
+Customer Service 10.1.1.3
+
+
+fa0/24
+Trunk
+
+10.1.1.0 /29
+.2    g0/1       .1
+
+209.165.0.0 /30
+.2  g0/0         .1
+
+209.165.100.0  /24
+.1  g0/1             .10
+
+209.165.200.0  /24
+.1  g0/2         .5
+
+
+DNS Server vlan 30
+10.1.1.195  /29
+
+vlan10   S0 ports fa0/1-5      addr space   10.1.1.128  /27     DHCP    Default Gateway   .129
+
+vlan20   S0 ports fa0/6-10    addr space    10.1.1.160  /27    DHCP   Default Gateway  .161
+
+vlan30  S0  ports  fa11-15   addr space  10.1.1.192  /29   static addressing   Default Gateway  last usable host in this subnet
